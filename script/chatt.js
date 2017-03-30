@@ -8,6 +8,7 @@ window.addEventListener('load', function (event) {
   let chatTable = document.getElementById('chatTable');
   let btnVerify = document.getElementById('btnVerify');
   let h1 = document.createElement('h1');
+  let provider = new firebase.auth.GithubAuthProvider();
 
   let user = '';
   btnSend.disabled = true;
@@ -26,6 +27,11 @@ window.addEventListener('load', function (event) {
   });
   
 btnVerify.addEventListener('click', function(event){
+  firebase.auth().signInWithPopup(provider)
+.then(function(result) {
+	// Om autentisering lyckas, så finns användarinfo i user
+	let user = result.user;
+});
   
 })
 
