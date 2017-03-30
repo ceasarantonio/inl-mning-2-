@@ -31,6 +31,8 @@ btnVerify.addEventListener('click', function(event){
 .then(function(result) {
 	// Om autentisering lyckas, så finns användarinfo i user
 	let user = result.user;
+    console.log(user);
+    //localStorage.setItem("userName", user.??)
 });
   
 })
