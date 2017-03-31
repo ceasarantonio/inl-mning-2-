@@ -9,33 +9,39 @@ window.addEventListener('load', function (event) {
   let btnVerify = document.getElementById('btnVerify');
   let h1 = document.createElement('h1');
   let provider = new firebase.auth.GithubAuthProvider();
+  let btnHidden = document.getElementById('btnHidden');
 
   let user = '';
   btnSend.disabled = true;
   chatTable.style.visibility = "hidden";
+  btnHidden.style.visibility = "hidden";
 
   btnLoggIn.addEventListener('click', function (event) {
     user = userName.value;
     localStorage.setItem("userName", user);
-    //console.log('Vem är användaren ' + user);
     userName.value = '';
     btnLoggIn.disabled = true;
     btnLoggOut.disabled = false;
     btnSend.disabled = false;
+    btnVerify.disabled = true;
     h1.innerHTML = `Välkommen ${user}`;
     body.insertBefore(h1, body.childNodes[0]);
   });
-  
-btnVerify.addEventListener('click', function(event){
-  firebase.auth().signInWithPopup(provider)
-.then(function(result) {
-	// Om autentisering lyckas, så finns användarinfo i user
-	let user = result.user;
-    console.log(user);
-    //localStorage.setItem("userName", user.??)
-});
-  
-})
+
+  btnVerify.addEventListener('click', function (event) {
+    firebase.auth().signInWithPopup(provider)
+      .then(function (result) {
+        user = result.user;
+        console.log(user);
+        h1.innerHTML = `Välkommen ${user.displayName}`;
+        body.insertBefore(h1, body.childNodes[0]);
+        btnLoggOut.disabled = false;
+        btnLoggIn.disabled = true;
+        btnHidden.style.visibility = "visible";
+
+      });
+
+  })
 
   btnLoggOut.addEventListener('click', function (event) {
     h1.innerHTML = `Logged Out ${user}`;
@@ -57,13 +63,13 @@ btnVerify.addEventListener('click', function(event){
     chatTable.appendChild(rt);
     firebase.database().ref('chattLogg/').push(message);
     chatText.value = '';
-    
+
   })
   firebase.database().ref('chattLogg/').on('value', function (snapshot) {
     //console.log('Laddat nya meddelande');
     snapshot.forEach(messageRef => {
       let messageObject = messageRef.val();
-     // console.log('Innehåll ', messageObject)
+      // console.log('Innehåll ', messageObject)
 
 
     })
