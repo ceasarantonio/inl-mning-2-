@@ -14,7 +14,7 @@ window.addEventListener('load', function (event) {
   let user = '';
   btnSend.disabled = true;
   chatTable.style.visibility = "hidden";
-  btnHidden.style.visibility = "hidden";
+
 
   btnLoggIn.addEventListener('click', function (event) {
     user = userName.value;
@@ -23,31 +23,9 @@ window.addEventListener('load', function (event) {
     btnLoggIn.disabled = true;
     btnLoggOut.disabled = false;
     btnSend.disabled = false;
-    btnVerify.disabled = true;
     h1.innerHTML = `Välkommen ${user}`;
     body.insertBefore(h1, body.childNodes[0]);
   });
-
-  btnVerify.addEventListener('click', function (event) {
-    firebase.auth().signInWithPopup(provider)
-      .then(function (result) {
-        user = result.user;
-        console.log(user);
-        h1.innerHTML = `Välkommen ${user.displayName}`;
-        body.insertBefore(h1, body.childNodes[0]);
-        btnLoggOut.disabled = false;
-        btnLoggIn.disabled = true;
-        btnHidden.style.visibility = "visible";
-        btnSend.disabled = false;
-        let picture = document.createElement('img');
-        picture.setAttribute("src", user.photoURL);
-        //picture.setAttribute("width", "304");
-        //picture.setAttribute("height", "228");
-        body.insertBefore(picture, body.childNodes[0]);
-        
-      });
-
-  })
 
   btnLoggOut.addEventListener('click', function (event) {
     h1.innerHTML = `Logged Out ${user}`;
