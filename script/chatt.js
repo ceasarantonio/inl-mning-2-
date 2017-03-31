@@ -39,10 +39,10 @@ window.addEventListener('load', function (event) {
         btnLoggIn.disabled = true;
         btnHidden.style.visibility = "visible";
         btnSend.disabled = false;
-        let picture = document.createElement('picture');
+        let picture = document.createElement('img');
         picture.setAttribute("src", user.photoURL);
-        picture.setAttribute("width", "304");
-        picture.setAttribute("height", "228");
+        //picture.setAttribute("width", "304");
+        //picture.setAttribute("height", "228");
         body.insertBefore(picture, body.childNodes[0]);
         
       });
