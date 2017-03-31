@@ -39,6 +39,9 @@ window.addEventListener('load', function (event) {
         btnLoggIn.disabled = true;
         btnHidden.style.visibility = "visible";
         btnSend.disabled = false;
+        let picture = document.createElement('picture');
+        picture.src = `https://avatars0.githubusercontent.com/u/21655007?v=3`;
+        
       });
 
   })
