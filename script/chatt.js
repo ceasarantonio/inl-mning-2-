@@ -38,7 +38,7 @@ window.addEventListener('load', function (event) {
         btnLoggOut.disabled = false;
         btnLoggIn.disabled = true;
         btnHidden.style.visibility = "visible";
-
+        btnSend.disabled = false;
       });
 
   })
