@@ -40,7 +40,7 @@ window.addEventListener('load', function (event) {
         btnHidden.style.visibility = "visible";
         btnSend.disabled = false;
         let picture = document.createElement('picture');
-        picture.setAttribute(src, user.photoURL);
+        picture.setAttribute("src", user.photoURL);
         picture.setAttribute("width", "304");
         picture.setAttribute("height", "228");
         body.insertBefore(picture, body.childNodes[1]);
