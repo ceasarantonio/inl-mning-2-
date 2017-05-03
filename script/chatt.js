@@ -8,7 +8,6 @@ window.addEventListener('load', function (event) {
   let chatTable = document.getElementById('chatTable');
   let btnVerify = document.getElementById('btnVerify');
   let h1 = document.createElement('h1');
-  let provider = new firebase.auth.GithubAuthProvider();
   let btnHidden = document.getElementById('btnHidden');
 
   let user = '';
@@ -25,6 +24,11 @@ window.addEventListener('load', function (event) {
     btnSend.disabled = false;
     h1.innerHTML = `Välkommen ${user}`;
     body.insertBefore(h1, body.childNodes[0]);
+    chatTable.style.visibility = "visible";
+    table();
+
+
+
   });
 
   btnLoggOut.addEventListener('click', function (event) {
@@ -33,6 +37,7 @@ window.addEventListener('load', function (event) {
     btnLoggOut.disabled = true;
     btnLoggIn.disabled = false;
     btnSend.disabled = true;
+    chatTable.innerHTML = '';
   });
 
   btnSend.addEventListener('click', function (event) {
@@ -49,14 +54,17 @@ window.addEventListener('load', function (event) {
     chatText.value = '';
 
   })
-  firebase.database().ref('chattLogg/').on('value', function (snapshot) {
-    //console.log('Laddat nya meddelande');
-    snapshot.forEach(messageRef => {
-      let messageObject = messageRef.val();
-      // console.log('Innehåll ', messageObject)
 
-
+  function table() {
+    firebase.database().ref('chattLogg/').once('value', function (snapshot) {
+      chatTable.style.visibility = "visible";
+      snapshot.forEach(messageRef => {
+        let message = messageRef.val();
+        let rt = document.createElement('tr');
+        rt.innerHTML = "<td>" + message.name + "<td>" + message.text + "<td>" + message.timestamp;
+        chatTable.appendChild(rt);
+      })
     })
-  });
+  };
 
 });
